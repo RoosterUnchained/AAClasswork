@@ -245,10 +245,20 @@ def five_cheap_toys
       toys.name, toys.price
     FROM
       toys
+    WHERE 
+      toys.price IN (
+        SELECT
+          toys.price
+        FROM
+          toys
+        GROUP BY 
+          toys.price
+        ORDER BY 
+          toys.price ASC 
+        LIMIT 5
+      )
     ORDER BY
-      toys.price
-    LIMIT 5
-    ORDER BY toys.name
+      toys.name
 
 
   SQL
